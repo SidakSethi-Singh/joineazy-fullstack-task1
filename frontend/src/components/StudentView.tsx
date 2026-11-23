@@ -91,7 +91,7 @@ export default function StudentView({ user }: { user: User }) {
         <StatCard label="Overdue" value={stats.overdue} />
       </div>
 
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <div className="mb-3 flex items-center justify-between">
           <h2 className="font-semibold text-slate-900">Due soon</h2>
           <button className={btnSecondary} onClick={() => setShowGroups(true)}>
@@ -104,7 +104,7 @@ export default function StudentView({ user }: { user: User }) {
           <ul className="space-y-2">
             {dueSoon.map((a) => (
               <li key={a.id} className="flex items-center justify-between gap-2 text-sm">
-                <button className="text-left font-medium text-indigo-700 hover:underline" onClick={() => setSelected(a)}>
+                <button className="text-left font-medium text-[#007aff] hover:underline" onClick={() => setSelected(a)}>
                   {a.title}
                 </button>
                 <span className={a.due_date === todayStr() ? 'font-medium text-amber-600' : 'text-slate-500'}>
@@ -116,7 +116,7 @@ export default function StudentView({ user }: { user: User }) {
         )}
       </div>
 
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">My Assignments</h2>
         <div className="mb-3 flex flex-wrap gap-2">
           <input className={inputCls + ' max-w-xs'} placeholder="Search assignments…" value={search} onChange={(e) => setSearch(e.target.value)} />
@@ -153,8 +153,8 @@ export default function StudentView({ user }: { user: User }) {
                   const s = subFor(a.id);
                   const status = s ? s.status : a.due_date < todayStr() ? 'overdue' : 'not-started';
                   return (
-                    <tr key={a.id} className="cursor-pointer border-b hover:bg-slate-50" onClick={() => setSelected(a)}>
-                      <td className="py-2 pr-2 font-medium text-indigo-700">{a.title}</td>
+                    <tr key={a.id} className="cursor-pointer border-b hover:bg-white/60" onClick={() => setSelected(a)}>
+                      <td className="py-2 pr-2 font-medium text-[#007aff]">{a.title}</td>
                       <td className="py-2 pr-2">{a.subject}</td>
                       <td className={`py-2 pr-2 ${a.due_date < todayStr() && !s ? 'font-medium text-red-600' : a.due_date === todayStr() ? 'font-medium text-amber-600' : ''}`}>
                         {a.due_date}
@@ -253,14 +253,14 @@ function AssignmentDetail({ assignment, submission, groups, user, onClose, onDon
     <Modal title={assignment.title} onClose={onClose}>
       <div className="space-y-4 text-sm">
         <div className="flex flex-wrap gap-2 text-xs text-slate-500">
-          <span className="rounded-full bg-slate-100 px-2 py-0.5">{assignment.subject}</span>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5">Due {assignment.due_date}</span>
-          <span className="rounded-full bg-slate-100 px-2 py-0.5">Max marks {assignment.max_marks}</span>
+          <span className="rounded-full bg-white/70 px-2 py-0.5">{assignment.subject}</span>
+          <span className="rounded-full bg-white/70 px-2 py-0.5">Due {assignment.due_date}</span>
+          <span className="rounded-full bg-white/70 px-2 py-0.5">Max marks {assignment.max_marks}</span>
         </div>
         <p className="text-slate-700">{assignment.description}</p>
 
         {submission ? (
-          <div className="rounded-lg border border-slate-200 p-4">
+          <div className="mac-inner p-4">
             <div className="mb-2 flex items-center justify-between">
               <span className="font-medium text-slate-900">My submission</span>
               <StatusBadge status={submission.status} />
@@ -268,7 +268,7 @@ function AssignmentDetail({ assignment, submission, groups, user, onClose, onDon
             <p className="text-slate-700">{submission.content}</p>
             {submission.onedrive_link && (
               <p className="mt-1 break-all">
-                OneDrive: <a className="text-indigo-600 hover:underline" href={submission.onedrive_link} target="_blank" rel="noreferrer">{submission.onedrive_link}</a>
+                OneDrive: <a className="text-[#007aff] hover:underline" href={submission.onedrive_link} target="_blank" rel="noreferrer">{submission.onedrive_link}</a>
               </p>
             )}
             <p className="mt-1 text-xs text-slate-500">
@@ -306,7 +306,7 @@ function AssignmentDetail({ assignment, submission, groups, user, onClose, onDon
             )}
           </div>
         ) : (
-          <div className="space-y-2 rounded-lg border border-slate-200 p-4">
+          <div className="space-y-2 mac-inner p-4">
             <h3 className="font-medium text-slate-900">Submit your work</h3>
             <div className="flex flex-wrap gap-2">
               <label className="flex items-center gap-1 text-sm">
@@ -363,7 +363,7 @@ function GroupsModal({ groups, students, user, onClose, onDone, toast }: {
         {groups.map((g) => (
           <GroupCard key={g.id} group={g} students={students} user={user} onDone={onDone} toast={toast} />
         ))}
-        <div className="space-y-2 rounded-lg border border-slate-200 p-4">
+        <div className="space-y-2 mac-inner p-4">
           <h3 className="font-medium text-slate-900">Create a new group</h3>
           <input className={inputCls} placeholder="Group name (e.g. Group Gamma)" value={name} onChange={(e) => setName(e.target.value)} />
           <div className="flex flex-wrap gap-2">
@@ -418,7 +418,7 @@ function GroupCard({ group, students, user, onDone, toast }: {
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 p-4">
+    <div className="mac-inner p-4">
       <div className="mb-2 font-medium text-slate-900">{group.name}</div>
       <ul className="space-y-1">
         {group.members.map((m) => (

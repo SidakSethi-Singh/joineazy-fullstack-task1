@@ -51,7 +51,7 @@ export default function AdminView() {
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`rounded-lg px-4 py-2 text-sm font-medium ${
-              tab === t.id ? 'bg-indigo-600 text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
+              tab === t.id ? 'bg-[#007aff] text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
             }`}
           >
             {t.label}
@@ -78,7 +78,7 @@ function Overview({ analytics, subs }: { analytics: Analytics; subs: Submission[
         <StatCard label="Awaiting grading" value={t.awaiting_grading} sub={`${t.awaiting_confirmation} still awaiting confirmation`} />
         <StatCard label="Graded" value={t.graded} />
       </div>
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">Recent submissions</h2>
         {recent.length === 0 ? (
           <p className="text-sm text-slate-500">No submissions yet.</p>
@@ -156,7 +156,7 @@ function AssignmentManager({ assignments, onDone, toast }: {
 
   return (
     <div className="space-y-4">
-      <form onSubmit={save} className="space-y-3 rounded-xl bg-white p-4 shadow-sm">
+      <form onSubmit={save} className="space-y-3 mac-window p-4">
         <h2 className="font-semibold text-slate-900">{editing ? 'Edit assignment' : 'Create assignment'}</h2>
         <div className="grid gap-3 sm:grid-cols-2">
           <input className={inputCls} placeholder="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
@@ -171,7 +171,7 @@ function AssignmentManager({ assignments, onDone, toast }: {
         </div>
       </form>
 
-      <div className="overflow-x-auto rounded-xl bg-white p-4 shadow-sm">
+      <div className="overflow-x-auto mac-window p-4">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b text-xs uppercase text-slate-500">
@@ -190,7 +190,7 @@ function AssignmentManager({ assignments, onDone, toast }: {
                 <td className="py-2 pr-2">{a.due_date.slice(0, 10)}</td>
                 <td className="py-2 pr-2">{a.max_marks}</td>
                 <td className="py-2">
-                  <button className="mr-3 text-indigo-600 hover:underline" onClick={() => startEdit(a)}>Edit</button>
+                  <button className="mr-3 text-[#007aff] hover:underline" onClick={() => startEdit(a)}>Edit</button>
                   <button className="text-red-600 hover:underline" onClick={() => setDeleting(a)}>Delete</button>
                 </td>
               </tr>
@@ -237,7 +237,7 @@ function SubmissionsPanel({ assignments, subs, onDone, toast }: {
   }
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-sm">
+    <div className="mac-window p-4">
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <h2 className="font-semibold text-slate-900">Submissions</h2>
         <select className={inputCls + ' max-w-xs'} value={filter} onChange={(e) => setFilter(e.target.value)}>
@@ -272,7 +272,7 @@ function SubmissionsPanel({ assignments, subs, onDone, toast }: {
                   <td className="max-w-[220px] py-2 pr-2">
                     <div className="line-clamp-2">{s.content}</div>
                     {s.onedrive_link && (
-                      <a className="break-all text-xs text-indigo-600 hover:underline" href={s.onedrive_link} target="_blank" rel="noreferrer">
+                      <a className="break-all text-xs text-[#007aff] hover:underline" href={s.onedrive_link} target="_blank" rel="noreferrer">
                         OneDrive link
                       </a>
                     )}
@@ -290,7 +290,7 @@ function SubmissionsPanel({ assignments, subs, onDone, toast }: {
                   </td>
                   <td className="py-2">
                     {s.status === 'confirmed' && (
-                      <button className="mr-3 text-indigo-600 hover:underline" onClick={() => setGrading(s)}>Grade</button>
+                      <button className="mr-3 text-[#007aff] hover:underline" onClick={() => setGrading(s)}>Grade</button>
                     )}
                     {(s.status === 'confirmed' || s.status === 'graded') && (
                       <button className="text-red-600 hover:underline" onClick={() => reopen(s)}>Reopen</button>
@@ -336,7 +336,7 @@ function GradeModal({ submission, onClose, onDone, toast }: {
   return (
     <Modal title={`Grade — ${submission.submitted_by_name} (${submission.assignment_title})`} onClose={onClose}>
       <div className="space-y-3 text-sm">
-        <p className="rounded-lg bg-slate-50 p-3 text-slate-700">{submission.content}</p>
+        <p className="rounded-lg bg-white/70 p-3 text-slate-700">{submission.content}</p>
         <div>
           <label className="mb-1 block font-medium">Marks (out of {submission.max_marks})</label>
           <input className={inputCls} type="number" min={0} max={submission.max_marks} value={grade} onChange={(e) => setGrade(e.target.value)} />
@@ -354,7 +354,7 @@ function GradeModal({ submission, onClose, onDone, toast }: {
 function AnalyticsPanel({ analytics }: { analytics: Analytics }) {
   return (
     <div className="space-y-6">
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">Submission rate per assignment</h2>
         <div className="space-y-3">
           {analytics.perAssignment.map((a) => (
@@ -364,7 +364,7 @@ function AnalyticsPanel({ analytics }: { analytics: Analytics }) {
                 <span>{a.students_covered}/{analytics.totals.students} students · {a.rate}%</span>
               </div>
               <div className="mt-1 h-2 rounded-full bg-slate-100">
-                <div className="h-2 rounded-full bg-indigo-600" style={{ width: `${a.rate}%` }} />
+                <div className="h-2 rounded-full bg-[#007aff]" style={{ width: `${a.rate}%` }} />
               </div>
               <div className="mt-0.5 text-xs text-slate-500">
                 {a.submissions} submission(s) · {a.confirmed} confirmed · {a.graded} graded
@@ -375,7 +375,7 @@ function AnalyticsPanel({ analytics }: { analytics: Analytics }) {
         </div>
       </div>
 
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">Group confirmation status</h2>
         {analytics.perGroup.map((g) => (
           <div key={g.id} className="mb-3 border-b border-slate-100 pb-3 last:border-0">
@@ -396,7 +396,7 @@ function AnalyticsPanel({ analytics }: { analytics: Analytics }) {
         ))}
       </div>
 
-      <div className="overflow-x-auto rounded-xl bg-white p-4 shadow-sm">
+      <div className="overflow-x-auto mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">Per-student status</h2>
         <table className="w-full text-left text-sm">
           <thead>
@@ -422,7 +422,7 @@ function AnalyticsPanel({ analytics }: { analytics: Analytics }) {
         </table>
       </div>
 
-      <div className="rounded-xl bg-white p-4 shadow-sm">
+      <div className="mac-window p-4">
         <h2 className="mb-3 font-semibold text-slate-900">Overdue — students who have not submitted</h2>
         {analytics.overdue.length === 0 ? (
           <p className="text-sm text-slate-500">Nothing overdue. 🎉</p>

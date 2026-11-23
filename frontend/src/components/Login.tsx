@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { authApi, type User } from '../lib/api';
-import { btnPrimary, inputCls } from './ui';
+import { btnPrimary, inputCls, TrafficLights } from './ui';
 
 const DEMO_ACCOUNTS: { name: string; email: string; role: string }[] = [
   { name: 'Prof. Anita Sharma', email: 'anita.sharma@joineazy.in', role: 'Professor' },
@@ -44,7 +44,11 @@ export default function Login({ onLogin }: { onLogin: (user: User, token: string
           <p className="mt-1 text-sm text-slate-600">Student, Group &amp; Assignment Management System</p>
         </div>
 
-        <div className="rounded-xl bg-white p-6 shadow-sm">
+        <div className="mac-window p-6">
+          <div className="mac-titlebar mb-4">
+            <TrafficLights />
+            <span className="ml-1 text-sm font-medium text-slate-500">Joineazy — Log in</span>
+          </div>
           <h2 className="mb-1 text-lg font-semibold text-slate-900">Log in</h2>
           <p className="mb-4 text-sm text-slate-500">
             Tap a demo account below to log in instantly. Every account uses password{' '}
@@ -58,7 +62,7 @@ export default function Login({ onLogin }: { onLogin: (user: User, token: string
                 type="button"
                 onClick={() => doLogin(undefined, a.email)}
                 disabled={busy}
-                className="rounded-lg border border-slate-200 p-3 text-left hover:border-indigo-400 hover:bg-indigo-50 disabled:opacity-50"
+                className="rounded-xl border border-slate-200/80 bg-white/70 p-3 text-left hover:border-[#007aff]/50 hover:bg-[#007aff]/5 disabled:opacity-50"
               >
                 <div className="text-sm font-medium text-slate-900">{a.name}</div>
                 <div className="text-xs text-slate-500">
